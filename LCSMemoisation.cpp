@@ -100,12 +100,10 @@ void Print2DArray(int** arr, const int m, const int n) {
 
 int main(int argc, char *argv[])
 {
-    const int m = 25;
-    const int n = 25;
+    const int m = 100;
+    const int n = 100;
     int X[m];
     int Y[n];
-    // int X[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    // int Y[] = {11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
     random_device rd;
     mt19937 mt(rd());
     uniform_int_distribution<int> dist(1, 21);
