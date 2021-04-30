@@ -1,10 +1,12 @@
 #include <vector>
 #include <iostream>
-#include <random>
 #include <algorithm>
 #include <tuple>
+#include <chrono>
+#include <random>
 
 using namespace std;
+using namespace std::chrono;
 
 #define LEFT 1
 #define UP 3
@@ -98,13 +100,8 @@ void Print2DArray(int** arr, const int m, const int n) {
 
 int main(int argc, char *argv[])
 {
-    // int X[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 26};
-    // int Y[] = {21, 22, 23, 24, 25, 26, 27, 28, 29, 210, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
-    // int Y[] = {51, 19, 15, 20, 22, 23, 24, 25, 26};
-    // const int m = 21;
-    // const int n = 9;
-    const int m = 20;
-    const int n = 50;
+    const int m = 25;
+    const int n = 25;
     int X[m];
     int Y[n];
     // int X[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -118,7 +115,10 @@ int main(int argc, char *argv[])
     for (int i = 0; i < n; i++)
         Y[i] = dist(mt);
 
+    auto start = high_resolution_clock::now();
     tuple<int**, int**> out = LCSLength(X, m, Y, n);
+    auto timed = duration_cast<milliseconds>(
+            high_resolution_clock::now() - start).count();
     int** c = get<0>(out);
     int** b = get<1>(out);
 
@@ -136,6 +136,8 @@ int main(int argc, char *argv[])
     cout << "Longest common subsequence is length: " << c[m-1][n-1] << endl;
 
     cout << "Longest common sequence:" << endl;
+
+    cout << "*Memoisation* Time taken: " << timed << "ms" << endl;
     PrintLCS(b, X, m-1, n-1);
 
     Delete2DArray(b, m);
